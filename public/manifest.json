@@ -1,0 +1,18 @@
+{
+    "id": "4d08b217-89c9-4306-80e7-641cef7a0835",
+    "version": "1.0.0",
+    "platform": "all",
+    "arch": "all",
+    "name": "exif-test",
+    "logo": "/logo.png",
+    "keywords": [],
+    "devTools": true,
+    "preview": {
+        "jpg,png": {
+            "inspector": {
+                "path": "index.html",
+                "height": 100
+            }
+        }
+    }
+}

@@ -1,0 +1,45 @@
+@use '@styles/modules/mixins' as mixins;
+
+html {
+    --thumb-bg-color: var(--color-black-15);
+    --thumb-hover-bg-color: var(--color-black-30);
+
+    &[theme='gray'],
+    &[theme='dark'],
+    &[theme='purple'],
+    &[theme='blue'] {
+        --thumb-bg-color: var(--color-white-15);
+        --thumb-hover-bg-color: var(--color-white-30);
+    }
+
+    ::-webkit-scrollbar {
+        width: 6px !important;
+        height: 4px !important;
+        margin-right: 4px;
+        overflow: scroll !important;
+        -webkit-appearance: none;
+    }
+    ::-webkit-scrollbar-thumb {
+        min-height: 50px !important;
+        padding: 50px 0px 0px !important;
+        border: 1px solid transparent !important;
+        border-radius: 20px !important;
+        border-image: initial !important;
+        background: var(--thumb-bg-color) !important;
+        background-clip: padding-box !important;
+        opacity: 0.6;
+        transition: background 100ms ease !important;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        border: 1px solid transparent !important;
+        background: var(--thumb-hover-bg-color) !important;
+        background-clip: padding-box !important;
+    }
+    ::-webkit-scrollbar-button {
+        width: 0px !important;
+        height: 0px !important;
+    }
+    ::-webkit-scrollbar-corner {
+        background: transparent !important;
+    }
+}

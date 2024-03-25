@@ -1,0 +1,33 @@
+.el-popover.el-popper {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px 0 8px;
+    min-width: auto;
+    width: auto !important;
+    font-size: 13px;
+    line-height: 13px;
+    border-radius: 6px;
+    box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.3);
+    &:before {
+        content: '';
+        background-image: url('/images/normal/base/ic-tip.svg');
+        width: 16px;
+        height: 16px;
+        margin-right: 4px;
+    }
+    .el-popper__arrow {
+        width: 12px;
+        height: 12px;
+        bottom: -3px;
+        &:before {
+            width: inherit;
+            height: inherit;
+            background: var(--color-primary);
+            border: none;
+        }
+    }
+}

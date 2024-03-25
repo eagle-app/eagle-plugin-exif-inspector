@@ -1,0 +1,13 @@
+.el-progress {
+    .el-progress-bar {
+        border-radius: 0;
+        .el-progress-bar__outer {
+            height: 2px !important;
+            background: var(--color-bg-active);
+            border-radius: inherit;
+            .el-progress-bar__inner {
+                border-radius: inherit;
+            }
+        }
+    }
+}

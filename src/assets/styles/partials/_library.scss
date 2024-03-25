@@ -1,0 +1,33 @@
+@use '@styles/modules/mixins' as mixins;
+
+// @font-face {
+//     font-family: IBMPlexMono-Regular;
+//     src: url("@/assets/fonts/IBMPlexMono-Regular.ttf");
+// }
+
+html.no-transition {
+    * {
+        transition: none !important;
+    }
+}
+
+.icon {
+    --background: transparent;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: var(--background);
+    transition: background-color 200ms ease-in-out;
+    &:hover {
+        --background: var(--color-bg-hover);
+    }
+    &:active {
+        --background: var(--color-bg-active);
+    }
+}
+
+.img-border {
+    outline: var(--color-black-10) solid 1px;
+    outline-offset: -1px;
+}

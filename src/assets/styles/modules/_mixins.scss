@@ -1,0 +1,8 @@
+@mixin dark() {
+    html[theme="gray"] &,
+    html[theme="dark"] &,
+    html[theme="purple"] &,
+    html[theme="blue"] & {
+        @content;
+    }
+}

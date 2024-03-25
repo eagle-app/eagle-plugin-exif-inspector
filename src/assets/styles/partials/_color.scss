@@ -1,0 +1,255 @@
+:root {
+    // 基礎色
+    $colors: (
+        color-brand: #0072ef,
+        color-brand-lighter: #3297ff,
+
+        color-black: #000000,
+        color-dark: #2c2f32,
+        color-gray: #50555b,
+        color-lightgray: #f8f9fb,
+        color-white: #ffffff,
+
+        color-positive: #34c759,
+        color-negative: #ff3b30,
+        color-warning: #ff9500,
+        color-info: #0072ef,
+
+        color-theme-gray: #37383c,
+        color-theme-dark: #18191c,
+        color-theme-blue: #0d1630,
+        color-theme-purple: #1c1424,
+        color-theme-light: #f3f4f6,
+        color-theme-lightgray: #e3e4e6
+    );
+
+    @each $name, $color in $colors {
+        --#{$name}: #{$color};
+        $step: 1;
+        $i: $step;
+        $max: 100;
+
+        @while $i < $max {
+            --#{$name}-#{$i}: #{rgba($color, calc(#{$i} / 100))};
+            $i: $i + $step;
+        }
+    }
+
+    --font-weight-bold: 600;
+    --font-family-mono: 'SF Mono', 'Fira Mono', 'Roboto Mono', 'Monaco', 'Consolas', monospace;
+}
+
+html {
+    &[platform='win32'] {
+        --font-weight-bold: 600;
+    }
+
+    &[platform='darwin'] {
+        --font-weight-bold: 600;
+    }
+
+    &[theme='dark'] {
+        --color-theme: var(--color-theme-dark);
+        --color-theme-75: var(--color-theme-dark-75);
+        --color-theme-80: var(--color-theme-dark-80);
+        --color-theme-85: var(--color-theme-dark-85);
+        --color-theme-90: var(--color-theme-dark-90);
+        --color-theme-95: var(--color-theme-dark-95);
+    }
+
+    &[theme='gray'] {
+        --color-theme: var(--color-theme-gray);
+        --color-theme-75: var(--color-theme-gray-75);
+        --color-theme-80: var(--color-theme-gray-80);
+        --color-theme-85: var(--color-theme-gray-85);
+        --color-theme-90: var(--color-theme-gray-90);
+        --color-theme-95: var(--color-theme-gray-95);
+    }
+
+    &[theme='blue'] {
+        --color-theme: var(--color-theme-blue);
+        --color-theme-75: var(--color-theme-blue-75);
+        --color-theme-80: var(--color-theme-blue-80);
+        --color-theme-85: var(--color-theme-blue-85);
+        --color-theme-90: var(--color-theme-blue-90);
+        --color-theme-95: var(--color-theme-blue-95);
+    }
+
+    &[theme='purple'] {
+        --color-theme: var(--color-theme-purple);
+        --color-theme-75: var(--color-theme-purple-75);
+        --color-theme-80: var(--color-theme-purple-80);
+        --color-theme-85: var(--color-theme-purple-85);
+        --color-theme-90: var(--color-theme-purple-90);
+        --color-theme-95: var(--color-theme-purple-95);
+    }
+
+    &[theme='light'] {
+        --color-theme: var(--color-white);
+        --color-theme-75: var(--color-white-75);
+        --color-theme-80: var(--color-white-80);
+        --color-theme-85: var(--color-white-85);
+        --color-theme-90: var(--color-white-90);
+        --color-theme-95: var(--color-white-95);
+    }
+
+    &[theme='lightgray'] {
+        --color-theme: var(--color-theme-lightgray);
+        --color-theme-75: var(--color-theme-lightgray-75);
+        --color-theme-80: var(--color-theme-lightgray-80);
+        --color-theme-85: var(--color-theme-lightgray-85);
+        --color-theme-90: var(--color-theme-lightgray-90);
+        --color-theme-95: var(--color-theme-lightgray-95);
+    }
+
+    &[theme='dark'],
+    &[theme='gray'],
+    &[theme='blue'],
+    &[theme='purple'] {
+        $step: 1;
+        $i: $step;
+        $max: 100;
+        --color-primary: #3297ff;
+        @while $i < $max {
+            --color-primary-#{$i}: #{rgba(#3297ff, calc(#{$i} / 100))};
+            $i: $i + $step;
+        }
+
+        --color-red-text: #f8e6e5;
+        --color-orange-text: #f8efe1;
+        --color-yellow-text: #f8f6e1;
+        --color-green-text: #e3f5e8;
+        --color-aqua-text: #e5f3f6;
+        --color-blue-text: #def0f8;
+        --color-purple-text: #f2eef9;
+        --color-pink-text: #f8eef4;
+
+        $colors: (
+            color-normal: #bdbec0,
+            // color-red: #FF453A,
+            color-red: #ff6667,
+            color-orange: #ff9f0a,
+            color-yellow: #ffd60a,
+            color-green: #30d159,
+            color-aqua: #40cbe0,
+            color-blue: #00aaff,
+            color-purple: #c499ff,
+            color-pink: #ff99cc
+        );
+        @each $name, $color in $colors {
+            --#{$name}: #{$color};
+            $step: 1;
+            $i: $step;
+            $max: 100;
+
+            @while $i < $max {
+                --#{$name}-#{$i}: #{rgba($color, calc(#{$i} / 100))};
+                $i: $i + $step;
+            }
+        }
+
+        // 文字顏色
+        --color-text-primary: var(--color-lightgray);
+        --color-text-secondary: var(--color-lightgray-70);
+        --color-text-tertiary: var(--color-lightgray-50);
+
+        // 外框色
+        --color-border-primary: var(--color-white-15);
+        --color-border-secondary: var(--color-white-10);
+
+        // 常用背景色
+        --color-bg-hover: var(--color-lightgray-5);
+        --color-bg-active: var(--color-lightgray-10);
+        --color-bg-selected: var(--color-primary-20);
+
+        // 彈窗外框效果
+        --box-item-border-color: var(--color-white-5);
+        --box-border-top: 1px solid var(--color-white-25);
+        --box-border-left: 1px solid var(--color-white-15);
+        --box-border-right: 1px solid var(--color-white-15);
+        --box-border-bottom: 1px solid var(--color-white-10);
+        --box-border-no-shadow: 0 0 0 1px var(--color-black-50);
+        --box-border-shadow: 0 12px 24px var(--color-black-30), 0 0 0 1px var(--color-black-50);
+        --box-border-shadow-small: 0 3px 12px var(--color-black-30), 0 0 0 1px var(--color-black-50);
+        --box-background: var(--color-theme-90);
+        --box-overlay-background: var(--color-black-50);
+        --box-background-blur: blur(13px) brightness(0.7);
+
+        --scrollbar-thumb-background: var(--color-white-25);
+        --scrollbar-thumb-hover-background: var(--color-white-50);
+    }
+
+    &[theme='light'],
+    &[theme='lightgray'] {
+        $step: 1;
+        $i: $step;
+        $max: 100;
+        --color-primary: #0072ef;
+        @while $i < $max {
+            --color-primary-#{$i}: #{rgba(#0072ef, calc(#{$i} / 100))};
+            $i: $i + $step;
+        }
+
+        --color-red-text: #88403e;
+        --color-orange-text: #7c5435;
+        --color-yellow-text: #77623e;
+        --color-green-text: #40594b;
+        --color-aqua-text: #16636c;
+        --color-blue-text: #345a78;
+        --color-purple-text: #5c496e;
+        --color-pink-text: #7d4a66;
+
+        $colors: (
+            color-normal: #50555b,
+            color-red: #e55245,
+            color-orange: #cc782f,
+            color-yellow: #c29343,
+            color-green: #548164,
+            color-aqua: #0097a7,
+            color-blue: #3987bf,
+            color-purple: #8a67ab,
+            color-pink: #cc6699
+        );
+        @each $name, $color in $colors {
+            --#{$name}: #{$color};
+            $step: 1;
+            $i: $step;
+            $max: 100;
+
+            @while $i < $max {
+                --#{$name}-#{$i}: #{rgba($color, calc(#{$i} / 100))};
+                $i: $i + $step;
+            }
+        }
+
+        // 文字顏色
+        --color-text-primary: var(--color-dark);
+        --color-text-secondary: var(--color-dark-70);
+        --color-text-tertiary: var(--color-dark-50);
+
+        // 外框色
+        --color-border-primary: var(--color-black-10);
+        --color-border-secondary: var(--color-black-10);
+
+        // 常用背景色
+        --color-bg-hover: var(--color-dark-5);
+        --color-bg-active: var(--color-dark-10);
+        --color-bg-selected: var(--color-primary-10);
+
+        // 彈窗外框效果
+        --box-item-border-color: var(--color-black-10);
+        --box-border-top: 1px solid var(--color-white);
+        --box-border-left: 1px solid var(--color-white-50);
+        --box-border-right: 1px solid var(--color-white-50);
+        --box-border-bottom: 1px solid var(--color-white-25);
+        --box-border-no-shadow: 0 0 0 1px var(--color-black-15);
+        --box-border-shadow: 0 12px 24px var(--color-black-15), 0 0 0 1px var(--color-black-15);
+        --box-border-shadow-small: 0 3px 12px var(--color-black-15), 0 0 0 1px var(--color-black-15);
+        --box-background: var(--color-theme-90);
+        --box-overlay-background: var(--color-black-25);
+        --box-background-blur: blur(25px) brightness(3);
+
+        --scrollbar-thumb-background: var(--color-black-25);
+        --scrollbar-thumb-hover-background: var(--color-black-50);
+    }
+}

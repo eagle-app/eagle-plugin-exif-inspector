@@ -1,0 +1,18 @@
+// import
+@use '@styles/partials/animate';
+@use '@styles/partials/color';
+@use '@styles/partials/base';
+@use '@styles/partials/library';
+
+// override
+@use '@styles/partials/override/scrollbar';
+
+@use '@styles/partials/override/tippy';
+@use '@styles/partials/override/context_menu';
+@use '@styles/partials/override/element/el-button';
+@use '@styles/partials/override/element/el-dialog';
+@use '@styles/partials/override/element/el-empty';
+@use '@styles/partials/override/element/el-select';
+@use '@styles/partials/override/element/el-scrollbar';
+@use '@styles/partials/override/element/el-popover';
+@use '@styles/partials/override/element/el-progress';

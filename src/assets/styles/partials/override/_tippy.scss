@@ -1,0 +1,94 @@
+@use '@styles/modules/mixins' as mixins;
+
+[data-tippy-root] {
+    --text-color: var(--color-text-primary);
+    --box-border-shadow: 0 0 4px var(--color-black-15), 0 0 0 1px var(--color-black-15);
+
+    @include mixins.dark {
+        --box-border-shadow: 0 0 4px var(--color-black-30), 0 0 0 1px var(--color-black-50);
+    }
+
+    z-index: 9100020 !important;
+
+    .tippy-content {
+        transition: opacity 0.2s ease-in-out;
+        transition-delay: 0 !important;
+        > span {
+            gap: inherit;
+            align-items: inherit;
+        }
+
+        display: flex;
+        align-items: center;
+        border-top: var(--box-border-top);
+        border-right: var(--box-border-right);
+        border-bottom: var(--box-border-bottom);
+        border-left: var(--box-border-left);
+        border-radius: 4px;
+        background: var(--box-background);
+        height: 24px;
+        overflow: hidden;
+        padding: 0 6px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 13px;
+        font-weight: normal;
+        color: var(--color-text-primary);
+        box-shadow: var(--box-border-shadow);
+        backdrop-filter: var(--box-background-blur);
+        gap: 4px;
+        key {
+            --shortcut-bg: var(--color-dark-15);
+            --shortcut-color: var(--color-text-primary);
+
+            @include mixins.dark {
+                --shortcut-bg: var(--color-lightgray-15);
+                --shortcut-color: var(--color-text-primary);
+            }
+            display: inline-flex;
+            align-items: center;
+            border-radius: 3px;
+            background-color: var(--shortcut-bg);
+            height: 16px;
+            padding: 0 4px;
+
+            font-family:
+                system-ui,
+                -apple-system,
+                'SF Pro Display',
+                'Segoe UI',
+                Roboto,
+                'Helvetica Neue',
+                'Noto Sans',
+                'Liberation Sans',
+                Arial;
+            font-size: 10px;
+            color: var(--shortcut-color);
+        }
+    }
+}
+
+.tippy-box {
+    max-width: none !important;
+}
+
+.tippy-box[data-animation='scale'][data-placement^='top'] {
+    transform-origin: bottom;
+}
+
+.tippy-box[data-animation='scale'][data-placement^='bottom'] {
+    transform-origin: top;
+}
+
+.tippy-box[data-animation='scale'][data-placement^='left'] {
+    transform-origin: right;
+}
+
+.tippy-box[data-animation='scale'][data-placement^='right'] {
+    transform-origin: left;
+}
+
+.tippy-box[data-animation='scale'][data-state='hidden'] {
+    opacity: 0;
+    transform: scale(0.95);
+}

@@ -1,0 +1,73 @@
+@use '@styles/modules/mixins' as mixins;
+
+:root {
+    --mx-menu-backgroud: none;
+    --mx-menu-hover-backgroud: none;
+    --mx-menu-active-backgroud: none;
+    --mx-menu-open-backgroud: none;
+    --mx-menu-open-hover-backgroud: none;
+    --mx-menu-divider: none;
+    --mx-menu-text: none;
+    --mx-menu-hover-text: none;
+    --mx-menu-active-text: none;
+    --mx-menu-open-text: none;
+    --mx-menu-open-hover-text: none;
+    --mx-menu-disabled-text: none;
+    --mx-menu-icon-size: none;
+    --mx-menu-shadow-color: none;
+    --mx-menu-backgroud-radius: none;
+    --mx-menu-shortcut-backgroud: none;
+    --mx-menu-shortcut-backgroud-hover: none;
+    --mx-menu-shortcut-backgroud-active: none;
+    --mx-menu-shortcut-backgroud-open: none;
+    --mx-menu-shortcut-backgroud-disabled: none;
+    --mx-menu-shortcut-text: none;
+    --mx-menu-shortcut-text-hover: none;
+    --mx-menu-shortcut-text-active: none;
+    --mx-menu-shortcut-text-open: none;
+    --mx-menu-shortcut-text-disabled: none;
+    --mx-menu-focus-color: none;
+    --mx-menu-placeholder-width: none;
+}
+
+.mx-context-menu {
+    background: var(--box-background);
+    border-top: var(--box-border-top);
+    border-left: var(--box-border-left);
+    border-right: var(--box-border-right);
+    border-bottom: var(--box-border-bottom);
+    box-shadow: var(--box-border-shadow);
+    color: var(--color-text-primary);
+    font-size: 13px;
+    border-radius: 8px;
+    backdrop-filter: var(--box-background-blur);
+    padding: 4px;
+
+    .mx-context-menu-items {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        .mx-context-menu-item-wrapper {
+            .mx-context-menu-item {
+                border-radius: 6px;
+                padding: 0 6px;
+                height: 26px;
+                display: flex;
+                align-items: center;
+                .mx-item-row {
+                    font-size: inherit;
+                    .label {
+                        font-size: inherit;
+                        padding: 0;
+                    }
+                }
+                &:hover {
+                    background: var(--color-bg-hover);
+                }
+                &:active {
+                    background: var(--color-bg-active);
+                }
+            }
+        }
+    }
+}

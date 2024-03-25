@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family:
+        -apple-system,
+        'SF Pro Text',
+        Helvetica Neue,
+        Helvetica,
+        Roboto,
+        Arial,
+        PingFang SC,
+        PingFang TC,
+        Hiragino Sans GB,
+        Microsoft Yahei,
+        Microsoft Jhenghei,
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 400;
+}
+
+img {
+    -webkit-user-drag: none;
+    user-select: none;
+    display: block;
+}
+
+html,
+body,
+#app {
+    height: 100%;
+    overflow: hidden;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    color: var(--color-text-primary);
+}

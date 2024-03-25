@@ -1,0 +1,11 @@
+.el-scrollbar {
+    .el-scrollbar__view {
+        overflow: overlay;
+    }
+    .is-horizontal {
+        display: none;
+    }
+    .is-vertical {
+        display: none;
+    }
+}

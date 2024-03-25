@@ -1,0 +1,101 @@
+@use 'vue-advanced-cropper/dist/theme.compact.css';
+
+.vue-advanced-cropper {
+    $border-width: 2px;
+    $border-radius: 6px;
+
+    border-radius: 6px;
+
+    // 三分線
+    .vue-rectangle-stencil__preview {
+        &:before,
+        &:after {
+            border-color: transparent;
+        }
+    }
+
+    // 遮罩
+    .vue-advanced-cropper__background,
+    .vue-advanced-cropper__foreground {
+        background: var(--box-overlay-background);
+        opacity: 1;
+    }
+
+    // 圓角
+    .vue-advanced-cropper__background,
+    .vue-advanced-cropper__foreground,
+    .vue-advanced-cropper__image-wrapper {
+        border-radius: 6px;
+    }
+
+    .vue-simple-line--east,
+    .vue-simple-line--west,
+    .vue-simple-line--south,
+    .vue-simple-line--north,
+    .vue-simple-handler--west-north,
+    .vue-simple-handler--east-south,
+    .vue-simple-handler--west-south,
+    .vue-simple-handler--east-north {
+        opacity: 1;
+        border-color: white;
+    }
+
+    // 上下左右線條中間的點點
+    .vue-simple-handler--south {
+        &:not(&.vue-simple-handler--east-south) or &:not(&.vue-simple-handler--west-south) {
+            display: none;
+        }
+    }
+
+    // 右線
+    .vue-simple-line--east {
+        border-right-width: $border-width;
+    }
+
+    // 左線
+    .vue-simple-line--west {
+        border-left-width: $border-width;
+    }
+
+    // 下線
+    .vue-simple-line--south {
+        border-bottom-width: $border-width;
+    }
+
+    // 上線
+    .vue-simple-line--north {
+        border-top-width: $border-width;
+    }
+
+    .vue-simple-handler--west-north,
+    .vue-simple-handler--east-south,
+    .vue-simple-handler--west-south,
+    .vue-simple-handler--east-north {
+        width: 16px;
+        height: 16px;
+    }
+
+    // 左上
+    .vue-simple-handler--west-north {
+        border-top-left-radius: $border-radius;
+        transform: translate(-6px, -6px);
+    }
+
+    // 右下
+    .vue-simple-handler--east-south {
+        border-bottom-right-radius: $border-radius;
+        transform: translate(6px, 6px);
+    }
+
+    // 左下
+    .vue-simple-handler--west-south {
+        border-bottom-left-radius: $border-radius;
+        transform: translate(-6px, 6px);
+    }
+
+    // 右上
+    .vue-simple-handler--east-north {
+        border-top-right-radius: $border-radius;
+        transform: translate(6px, -6px);
+    }
+}

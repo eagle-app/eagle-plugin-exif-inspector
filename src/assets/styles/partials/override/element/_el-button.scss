@@ -1,0 +1,120 @@
+@use '@styles/modules/mixins' as mixins;
+.el-button {
+    --el-button-font-weight: none;
+    --el-button-border-color: none;
+    --el-button-bg-color: none;
+    --el-button-text-color: none;
+    --el-button-disabled-text-color: none;
+    --el-button-disabled-bg-color: none;
+    --el-button-disabled-border-color: none;
+    --el-button-divide-border-color: none;
+    --el-button-hover-text-color: none;
+    --el-button-hover-bg-color: none;
+    --el-button-hover-border-color: none;
+    --el-button-active-text-color: none;
+    --el-button-active-border-color: none;
+    --el-button-active-bg-color: none;
+    --el-button-outline-color: none;
+    --el-button-hover-link-text-color: none;
+    --el-button-active-color: none;
+    --el-mask-color-extra-light: none;
+    // normal狀態
+    &,
+    &:hover,
+    &:active,
+    &:focus {
+        --border-color: var(--color-border-secondary);
+        --background-color: var(--color-white-25);
+        --background-mix-color: none;
+        --text-color: var(--color-text-primary);
+        @include mixins.dark {
+            --background-color: var(--color-lightgray-5);
+        }
+        height: 36px;
+        line-height: 36px;
+        border-radius: 6px;
+        color: var(--text-color) !important;
+        background-color: var(--background-color) !important;
+        background-image: linear-gradient(
+            0deg,
+            var(--background-mix-color),
+            var(--background-mix-color)
+        ) !important;
+        border: 1px solid var(--border-color) !important;
+        font-size: 13px;
+        padding: 0 16px;
+        span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            justify-content: center;
+        }
+        // hover狀態
+        &:hover:not(.is-disabled) {
+            --border-color: var(--color-border-primary);
+            --background-mix-color: var(--color-black-5);
+            @include mixins.dark {
+                --background-mix-color: var(--color-white-5);
+            }
+        }
+        // active狀態
+        &:active:not(.is-disabled) {
+            --border-color: var(--color-border-primary);
+            --background-mix-color: var(--color-black-10);
+            @include mixins.dark {
+                --background-mix-color: var(--color-black-5);
+            }
+        }
+        // disabled狀態
+        &.is-disabled {
+            --border-color: var(--color-border-primary);
+            opacity: 0.5;
+            pointer-events: all;
+        }
+        &.is-loading {
+            opacity: 0.5;
+            .el-icon {
+                --background-image: url('/images/light/base/ic-btn-loading.svg');
+                @include mixins.dark {
+                    --background-image: url('/images/dark/base/ic-btn-loading.svg');
+                }
+                width: 16px;
+                height: 16px;
+                background-size: 16px 16px;
+                background-image: var(--background-image);
+                animation: loading 2s infinite linear;
+                svg {
+                    opacity: 0;
+                    width: 16px;
+                    height: 16px;
+                }
+            }
+            &[class*='el-icon'] + span {
+                margin-left: 8px;
+            }
+        }
+        // Primary
+        &.el-button--primary {
+            &,
+            &:hover,
+            &:active,
+            &:focus {
+                --border-color: var(--color-white-15) !important;
+                --background-color: var(--color-primary) !important;
+                --text-color: var(--color-white) !important;
+                span {
+                    font-weight: var(--font-weight-bold);
+                }
+                // hover狀態
+                &:hover:not(.is-disabled) {
+                    --background-mix-color: var(--color-white-5) !important;
+                }
+                // active狀態
+                &:active:not(.is-disabled) {
+                    --background-mix-color: var(--color-black-5) !important;
+                }
+            }
+        }
+    }
+}

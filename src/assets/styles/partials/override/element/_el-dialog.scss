@@ -1,0 +1,36 @@
+@use '@styles/modules/mixins' as mixins;
+
+.el-overlay {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--box-overlay-background);
+    & > .el-overlay-dialog {
+        & > .el-dialog {
+            width: auto;
+            padding: 24px;
+            min-width: 360px;
+            max-width: 380px;
+            border-radius: 10px;
+            background: var(--box-background);
+            box-shadow: var(--box-border-shadow);
+            border-top: var(--box-border-top);
+            border-left: var(--box-border-left);
+            border-right: var(--box-border-right);
+            border-bottom: var(--box-border-bottom);
+            backdrop-filter: var(--box-background-blur);
+
+            & > .el-dialog__body {
+                flex: 1;
+            }
+            & > .el-dialog__header,
+            & > .el-dialog__footer,
+            & > .el-dialog__body {
+                padding: 0;
+            }
+            & > .el-dialog__header,
+            & > .el-dialog__footer {
+                display: none;
+            }
+        }
+    }
+}

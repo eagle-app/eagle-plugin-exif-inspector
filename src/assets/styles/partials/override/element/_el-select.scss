@@ -1,0 +1,125 @@
+@use '@styles/modules/mixins' as mixins;
+
+.el-select > .select-trigger > .el-input {
+    height: 36px;
+    line-height: 36px;
+    > .el-input__wrapper {
+        --background: var(--color-white-50);
+        --border-color: var(--color-border-primary);
+        @include mixins.dark {
+            --background: var(--color-black-20);
+        }
+        &.is-focus {
+            --border-color: var(--color-brand);
+            @include mixins.dark {
+                --border-color: var(--color-brand-lighter);
+            }
+        }
+        box-shadow: none !important;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        background: var(--background);
+        padding: 0;
+        height: inherit;
+        line-height: inherit;
+        .el-input__inner {
+            height: inherit;
+            line-height: inherit;
+            color: var(--color-text-primary);
+            padding-left: 12px;
+            font-size: 13px;
+            &::placeholder {
+                --color: var(--color-dark-25);
+                @include mixins.dark {
+                    --color: var(--color-lightgray-25);
+                }
+                color: var(--color);
+            }
+            &::selection,
+            &::placeholder {
+                user-select: none;
+            }
+        }
+        .el-input__suffix {
+            .el-input__suffix-inner {
+                .el-select__icon {
+                    --icon: url('/images/light/base/ic-select-caret-down.svg');
+                    @include mixins.dark {
+                        --icon: url('/images/dark/base/ic-select-caret-down.svg');
+                    }
+                    width: 36px;
+                    height: 36px;
+                    margin: 0;
+                    background: var(--icon);
+                    svg {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+//
+.el-select__popper.el-popper {
+    --el-bg-color-overlay: none;
+    --el-border-color-light: none;
+    --el-box-shadow-light: none;
+    transform: translateY(7px);
+    background: var(--box-background);
+    border-top: var(--box-border-top);
+    border-left: var(--box-border-left);
+    border-right: var(--box-border-right);
+    border-bottom: var(--box-border-bottom);
+    box-shadow: var(--box-border-shadow);
+    backdrop-filter: var(--box-background-blur);
+    border-radius: 6px;
+    .el-select-dropdown {
+        min-width: auto !important;
+        padding: 6px;
+        .el-select-dropdown__wrap {
+            max-height: 260px;
+            .el-select-dropdown__list {
+                display: flex;
+                gap: 2px;
+                flex-direction: column;
+                padding: 0;
+                .el-select-dropdown__item {
+                    padding: 6px;
+                    color: var(--color-text-primary);
+                    display: flex;
+                    font-size: 13px;
+                    height: 28px;
+                    align-items: center;
+                    border-radius: 6px;
+                    gap: 6px;
+                    &:before {
+                        --background-image: url('/images/light/base/ic-select-tick.svg');
+                        @include mixins.dark {
+                            --background-image: url('/images/dark/base/ic-select-tick.svg');
+                        }
+                        content: '';
+                        width: 16px;
+                        height: 16px;
+                        background-image: var(--background-image);
+                        opacity: 0;
+                    }
+                    &.hover {
+                        background: var(--color-bg-hover);
+                    }
+                    &:active {
+                        background: var(--color-bg-active);
+                    }
+                    &.selected {
+                        &::before {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .el-popper__arrow {
+        display: none;
+    }
+}
