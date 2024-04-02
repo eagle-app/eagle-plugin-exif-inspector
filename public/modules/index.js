@@ -1,5 +1,5 @@
-const ImageConverter = require("./image-converter");
+const ExifInspector = require('./exif-inspector');
 
 module.exports = {
-    ImageConverter
+    ExifInspector
 };

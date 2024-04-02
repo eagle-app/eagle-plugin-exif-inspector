@@ -45,12 +45,3 @@ async function toggleTheme() {
     await nextTick();
     htmlEl.classList.remove('no-transition');
 }
-
-window.addEventListener('load', async () => {
-    await utils.file.deleteFolder(`${__dirname}/temp`);
-    await utils.file.createFolder(`${__dirname}/temp`);
-});
-
-window.addEventListener('unload', async () => {
-    await utils.file.deleteFolder(`${__dirname}/temp`);
-});

@@ -3,15 +3,17 @@
     "version": "1.0.0",
     "platform": "all",
     "arch": "all",
-    "name": "exif-test",
+    "name": "{{manifest.app.name}}",
     "logo": "/logo.png",
     "keywords": [],
+    "fallbackLanguage": "en",
+    "languages": ["en", "zh_TW", "zh_CN", "ja_JP", "ko_KR", "es_ES", "de_DE", "ru_RU"],
     "devTools": true,
     "preview": {
         "jpg,png": {
             "inspector": {
                 "path": "index.html",
-                "height": 100
+                "height": 500
             }
         }
     }
