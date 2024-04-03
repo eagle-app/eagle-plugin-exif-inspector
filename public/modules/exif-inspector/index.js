@@ -18,7 +18,7 @@ module.exports = class {
             });
             data = JSON.parse(data)[0];
             data = formatData(data);
-            data = deepRemoveUndefined(data);
+            // data = deepRemoveUndefined(data);
             return data;
         } catch (err) {
             return err;

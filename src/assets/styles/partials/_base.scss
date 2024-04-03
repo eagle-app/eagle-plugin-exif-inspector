@@ -25,15 +25,15 @@ img {
 }
 
 html,
-body,
-#app {
+body {
     height: 100%;
     overflow: hidden;
 }
 
 #app {
+    height: 100%;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: overlay;
     color: var(--color-text-primary);
 }
