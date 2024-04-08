@@ -9,18 +9,18 @@ const props = defineProps({
     },
     index: {
         type: Number,
-        default: 0
+        default: -1
     }
 });
 </script>
 
 <template>
     <ul class="item-vue">
-        <li v-for="(v, k) in data" :key="v">
-            <span v-for="i in index" :key="i">&emsp;</span>
+        <li v-for="(v, k) in data" :key="v" class="row">
+            <span v-for="i in index" :key="i" v-if="index > 0">&emsp;</span>
             <span class="title">{{ t('exif.' + k) }}</span>
             <ItemVue :data="v" :index="props.index + 1" v-if="typeof v === 'object'"></ItemVue>
-            <span class="content" v-else>: {{ v || 'undefined' }}</span>
+            <span class="content" v-else>{{ v || 'undefined' }}</span>
         </li>
     </ul>
 </template>
@@ -30,14 +30,20 @@ const props = defineProps({
     list-style-type: none;
     padding: 0;
     font-size: 11px;
-    .title {
-        font-size: 11px;
-        color: var(--color-text-primary);
-    }
-    .content {
-        font-size: 11px;
-        color: var(--color-text-secondary);
-        font-family: var(--font-family-mono);
+    .row {
+        line-height: 18px;
+        .title {
+            display: inline-block;
+            font-size: 11px;
+            color: var(--color-text-primary);
+            width: 88px;
+            margin-right: 8px;
+        }
+        .content {
+            font-size: 11px;
+            color: var(--color-text-secondary);
+            font-family: var(--font-family-mono);
+        }
     }
 }
 </style>

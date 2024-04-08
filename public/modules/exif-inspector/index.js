@@ -10,6 +10,7 @@ module.exports = class {
         try {
             let data = await new Promise((resolve, reject) => {
                 ls.stdout.on('data', (data) => {
+                    console.log(data.toString());
                     resolve(data.toString());
                 });
                 ls.stderr.on('data', (data) => {
@@ -18,7 +19,7 @@ module.exports = class {
             });
             data = JSON.parse(data)[0];
             data = formatData(data);
-            // data = deepRemoveUndefined(data);
+            data = deepRemoveUndefined(data);
             return data;
         } catch (err) {
             return err;
