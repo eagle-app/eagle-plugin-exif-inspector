@@ -1,7 +1,7 @@
 {
     "manifest": {
         "app": {
-            "name": "exif測試"
+            "name": "exif檢查器"
         }
     },
     "exif": {
@@ -52,5 +52,6 @@
         "FocalLengthIn35mmFilm": "35mm焦距等效",
         "Artist": "拍攝者",
         "Copyright": "版權信息"
-    }
+    },
+    "NoData": "無資料"
 }

@@ -15,7 +15,8 @@ onMounted(async () => {
 </script>
 
 <template>
-    <ItemVue :data="data"></ItemVue>
+    <ItemVue :data="data" v-if="Object.keys(data).length"></ItemVue>
+    <div v-else style="font-size: 11px">{{ t('NoData') }}</div>
 </template>
 
 <style lang="scss"></style>

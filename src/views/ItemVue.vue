@@ -34,13 +34,11 @@ const props = defineProps({
         line-height: 18px;
         .title {
             display: inline-block;
-            font-size: 11px;
             color: var(--color-text-primary);
             width: 88px;
             margin-right: 8px;
         }
         .content {
-            font-size: 11px;
             color: var(--color-text-secondary);
             font-family: var(--font-family-mono);
         }
