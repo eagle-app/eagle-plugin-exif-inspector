@@ -5,7 +5,7 @@ import { t, useContextMenu } from '@/composables';
 const utils = require(`${__dirname}/modules/utils`);
 const { ExifInspector } = require(`${__dirname}/modules`);
 
-const data = ref(null);
+const data = ref({});
 
 onMounted(async () => {
     const items = await eagle.item.getSelected();
