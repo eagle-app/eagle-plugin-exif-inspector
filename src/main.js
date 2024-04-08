@@ -15,9 +15,9 @@ app.use(VueTippy);
 app.use(VueMousetrapPlugin).provide('mousetrap', app.config.globalProperties.$mousetrap);
 
 eagle.onPluginCreate(async () => {
-    app.mount('#app');
-
     toggleTheme();
+
+    app.mount('#app');
 });
 
 eagle.onThemeChanged(() => {
