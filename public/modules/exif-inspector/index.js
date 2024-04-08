@@ -9,12 +9,16 @@ module.exports = class {
 
         try {
             let data = await new Promise((resolve, reject) => {
+                const ar = [];
                 ls.stdout.on('data', (data) => {
-                    console.log(data.toString());
-                    resolve(data.toString());
+                    ar.push(data.toString());
                 });
                 ls.stderr.on('data', (data) => {
                     reject(data);
+                });
+                ls.on('close', (code) => {
+                    if (code !== 0) reject('Error: ' + code);
+                    resolve(ar.join(''));
                 });
             });
             data = JSON.parse(data)[0];
