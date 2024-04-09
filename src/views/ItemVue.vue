@@ -49,15 +49,17 @@ const collapse = () => {
     border-radius: 4px;
     padding: 8px;
     font-size: 11px;
-    .titlebar {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        &:hover {
+    &:hover {
+        .titlebar {
             .collapse-btn {
                 opacity: 1;
             }
         }
+    }
+    .titlebar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         .name {
             flex: 1;
             color: var(--color-text-tertiary);
