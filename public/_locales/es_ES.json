@@ -53,5 +53,6 @@
         "Artist": "Artista",
         "Copyright": "Información de derechos de autor"
     },
-    "NoData": "Sin datos"
+    "noData": "El archivo no contiene información relevante",
+    "loading": "Cargando información..."
 }

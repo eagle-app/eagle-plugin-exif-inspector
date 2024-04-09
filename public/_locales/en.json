@@ -53,5 +53,6 @@
         "Artist": "Artist",
         "Copyright": "Copyright"
     },
-    "NoData": "No Data"
+    "noData": "No relevant information available in this document",
+    "loading": "Information loading..."
 }

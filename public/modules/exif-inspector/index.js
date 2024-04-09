@@ -96,7 +96,7 @@ const deepRemoveUndefined = (obj) => {
             if (Object.keys(obj[key]).length === 0 && obj[key].constructor === Object) {
                 delete obj[key];
             }
-        } else if (obj[key] === undefined) {
+        } else if (obj[key] === undefined || obj[key] === null || obj[key] === '') {
             delete obj[key];
         }
     }

@@ -53,5 +53,6 @@
         "Artist": "拍攝者",
         "Copyright": "版權信息"
     },
-    "NoData": "無資料"
+    "noData": "該文件沒有相關訊息",
+    "loading": "訊息加載中..."
 }
