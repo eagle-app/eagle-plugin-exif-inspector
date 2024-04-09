@@ -26,9 +26,9 @@ const collapse = () => {
             }
         ]"
     >
-        <div class="titlebar">
+        <div class="titlebar" @click="collapse">
             <div class="name">{{ props.title }}</div>
-            <div class="collapse-btn" @click="collapse"></div>
+            <div class="collapse-btn"></div>
         </div>
         <div class="info">
             <div style="height: 8px" v-if="Object.keys(props.info).length !== 0"></div>
@@ -53,6 +53,11 @@ const collapse = () => {
         display: flex;
         align-items: center;
         gap: 8px;
+        &:hover {
+            .collapse-btn {
+                opacity: 1;
+            }
+        }
         .name {
             flex: 1;
             color: var(--color-text-tertiary);
@@ -60,6 +65,7 @@ const collapse = () => {
             user-select: none;
         }
         .collapse-btn {
+            opacity: 0;
             width: 18px;
             height: 18px;
             border-radius: 4px;
@@ -67,6 +73,7 @@ const collapse = () => {
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: opacity 200ms ease-in-out;
             &:after {
                 --background-image: url('/images/light/arrow.svg');
                 @include mixins.dark {
