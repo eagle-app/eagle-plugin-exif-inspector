@@ -5,7 +5,11 @@ const path = require('node:path');
 module.exports = class {
     static async getData(filePath) {
         filePath = path.normalize(filePath);
-        const ls = spawn(`${eagle.plugin.path}/modules/exif-inspector/exiftool`, ['-EXIF:All', '-j', filePath]);
+        const ls = spawn(`${eagle.plugin.path}/modules/exif-inspector/exiftool`, [
+            '-EXIF:All',
+            '-j',
+            filePath
+        ]);
 
         try {
             let data = await new Promise((resolve, reject) => {
@@ -57,7 +61,7 @@ const formatData = (exifData) => {
             Sharpness: exifData['Sharpness']
         },
         ImageInfo: {
-            Orientation: exifData['Orienation'],
+            Orientation: exifData['Orientation'],
             XResolution: exifData['XResolution'],
             YResolution: exifData['YResolution'],
             ResolutionUnit: exifData['ResolutionUnit'],
