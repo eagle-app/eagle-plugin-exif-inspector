@@ -1,4 +1,6 @@
 <script setup>
+import { onMounted } from 'vue';
+
 const props = defineProps({
     title: {
         type: String,
@@ -14,7 +16,17 @@ const is_collapsed = ref(false);
 
 const collapse = () => {
     is_collapsed.value = !is_collapsed.value;
+    localStorage.setItem(
+        `${eagle.plugin.manifest.id}.${props.title}.is_collapsed`,
+        is_collapsed.value
+    );
 };
+
+onMounted(() => {
+    is_collapsed.value =
+        localStorage.getItem(`${eagle.plugin.manifest.id}.${props.title}.is_collapsed`) ===
+            'true' ?? false;
+});
 </script>
 
 <template>
@@ -27,7 +39,9 @@ const collapse = () => {
         ]"
     >
         <div class="titlebar" @click="collapse">
-            <div class="name">{{ props.title }}</div>
+            <div class="name">
+                <slot name="title">{{ props.title }}</slot>
+            </div>
             <div class="collapse-btn"></div>
         </div>
         <div class="info">

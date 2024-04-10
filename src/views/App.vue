@@ -29,7 +29,8 @@ onMounted(async () => {
         <template v-if="Object.keys(data).length > 0">
             <div class="list">
                 <template v-for="(value, key) in data" :key="title">
-                    <ItemVue :title="t('exif.' + key)" :info="value">
+                    <ItemVue :title="key" :info="value">
+                        <template #title>{{ t('exif.' + key) }}</template>
                         <template #key="slotProps">{{ t('exif.' + slotProps.text) }}</template>
                     </ItemVue>
                 </template>
