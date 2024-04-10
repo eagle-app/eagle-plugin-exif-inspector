@@ -6,8 +6,8 @@ module.exports = class {
     static async getData(filePath) {
         filePath = path.normalize(filePath);
         const ls = spawn(`${eagle.plugin.path}/modules/exif-inspector/exiftool`, [
-            '-EXIF:All',
             '-j',
+            '-EXIF:All',
             filePath
         ]);
 
@@ -18,7 +18,7 @@ module.exports = class {
                     ar.push(data.toString());
                 });
                 ls.stderr.on('data', (data) => {
-                    reject(data);
+                    console.error(data.toString());
                 });
                 ls.on('close', (code) => {
                     if (code !== 0) reject('Error: ' + code);
@@ -30,7 +30,7 @@ module.exports = class {
             data = deepRemoveUndefined(data);
             return data;
         } catch (err) {
-            return err;
+            throw err;
         }
     }
 };
