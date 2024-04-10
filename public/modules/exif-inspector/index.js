@@ -5,7 +5,7 @@ const path = require('node:path');
 module.exports = class {
     static async getData(filePath) {
         filePath = path.normalize(filePath);
-        const ls = spawn(`${eagle.plugin.path}/modules/exif-inspector/exiftool`, ['-j', filePath]);
+        const ls = spawn(`${eagle.plugin.path}/modules/exif-inspector/exiftool`, ['-EXIF:All', '-j', filePath]);
 
         try {
             let data = await new Promise((resolve, reject) => {
