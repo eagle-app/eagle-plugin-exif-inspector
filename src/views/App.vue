@@ -5,7 +5,7 @@ import { t, useContextMenu } from '@/composables';
 const utils = require(`${__dirname}/modules/utils`);
 const { ExifInspector } = require(`${__dirname}/modules`);
 
-const isLoading = ref(false);
+const isLoading = ref(true);
 const data = ref({});
 
 onMounted(async () => {
