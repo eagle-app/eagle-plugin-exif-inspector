@@ -1,7 +1,7 @@
 {
     "manifest": {
         "app": {
-            "name": "exif 검사기"
+            "name": "EXIF 뷰어"
         }
     },
     "exif": {

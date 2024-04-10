@@ -1,7 +1,7 @@
 {
     "manifest": {
         "app": {
-            "name": "exif检查器"
+            "name": "EXIF 属性"
         }
     },
     "exif": {

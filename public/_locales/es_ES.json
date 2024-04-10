@@ -1,7 +1,7 @@
 {
     "manifest": {
         "app": {
-            "name": "Inspector de Exif"
+            "name": "Visor EXIF"
         }
     },
     "exif": {
