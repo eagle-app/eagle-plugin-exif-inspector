@@ -7,6 +7,8 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import vue from '@vitejs/plugin-vue';
 import fg from 'fast-glob';
 
+import copy from 'rollup-plugin-copy';
+
 // https://vitejs.dev/config/
 export default defineConfig({
     base: './',
@@ -14,7 +16,6 @@ export default defineConfig({
         sourcemap: false,
         minify: false,
         rollupOptions: {
-            external: [fileURLToPath(new URL('./public/modules/index.js', import.meta.url))],
             output: {
                 manualChunks(id) {
                     if (id.includes('node_modules')) {
@@ -30,7 +31,18 @@ export default defineConfig({
                     }
                     return `assets/${extType}/[name]-[hash][extname]`;
                 }
-            }
+            },
+            plugins: [
+                copy({
+                    targets: [
+                        {
+                            src: 'bin/mac/*',
+                            dest: 'dist/build-mac/modules/exif-inspector/'
+                        }
+                    ],
+                    hook: 'closeBundle'
+                })
+            ]
         }
     },
     plugins: [
