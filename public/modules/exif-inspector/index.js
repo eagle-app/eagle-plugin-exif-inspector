@@ -6,6 +6,10 @@ module.exports = class {
     static async getData(filePath) {
         filePath = path.normalize(filePath);
         const ls = spawn(`${eagle.plugin.path}/modules/exif-inspector/exiftool`, [
+            '-HDRImageType',
+            '-ExposureTime',
+            '-ExposureMode',
+            '-ExposureProgram',
             '-j',
             '-EXIF:All',
             filePath
@@ -44,7 +48,6 @@ const formatData = (exifData) => {
         },
         ShootingInfo: {
             DateTime: exifData['DateTimeOriginal'],
-            ExposureTime: exifData['ExposureTime'],
             FNumber: exifData['FNumber'],
             ISOSpeedRatings: exifData['ISOSpeed'],
             ExposureBias: exifData['Exposure'],
@@ -52,8 +55,13 @@ const formatData = (exifData) => {
             MeteringMode: exifData['MeteringMode'],
             Flash: exifData['Flash'],
             FocalLength: exifData['FocalLength'],
+
+            HDR: isHDR(exifData) ? 'YES' : '',
+
+            ExposureTime: exifData['ExposureTime'],
             ExposureMode: exifData['ExposureMode'],
             ExposureProgram: exifData['ExposureProgram'],
+
             WhiteBalance: exifData['WhiteBalance'],
             SceneCaptureType: exifData['SceneCaptureType'],
             Contrast: exifData['Contrast'],
@@ -105,4 +113,10 @@ const deepRemoveUndefined = (obj) => {
         }
     }
     return obj;
+};
+
+const isHDR = (exifData) => {
+    if (exifData.HDRImageType?.includes('HDR')) return true;
+    // 可能還有其他評判標準
+    return false;
 };
