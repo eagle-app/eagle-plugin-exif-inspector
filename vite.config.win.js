@@ -59,7 +59,7 @@ export default defineConfig({
             targets: [
                 {
                     src: 'bin/win/*',
-                    dest: 'dist/build-win/modules/exif-inspector/'
+                    dest: 'dist/build-win/modules/'
                 }
             ],
             hook: 'closeBundle'

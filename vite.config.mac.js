@@ -37,7 +37,7 @@ export default defineConfig({
                     targets: [
                         {
                             src: 'bin/mac/*',
-                            dest: 'dist/build-mac/modules/exif-inspector/'
+                            dest: 'dist/build-mac/modules/'
                         }
                     ],
                     hook: 'closeBundle'
