@@ -5,6 +5,14 @@ const path = require('node:path');
 module.exports = class {
     static async getData(filePath) {
         filePath = path.normalize(filePath);
+        if (!(await fs.access(filePath, fs.constants.F_OK | fs.constants.X_OK))) {
+            await new Promise((resolve, reject) => {
+                exec(`chmod +x "${filePath}"`, (error, stdout, stderr) => {
+                    if (error) reject(error);
+                    resolve();
+                });
+            });
+        }
         const ls = spawn(`${eagle.plugin.path}/modules/exif-inspector/exiftool`, [
             '-HDRImageType',
             '-ExposureTime',
