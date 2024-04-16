@@ -1,13 +1,29 @@
 'use strict';
-const { spawn } = require('node:child_process');
+const { spawn, exec } = require('node:child_process');
 const path = require('node:path');
+const fs = require('node:fs').promises;
 
 module.exports = class {
     static async getData(filePath) {
         filePath = path.normalize(filePath);
-        const ls = spawn(`${eagle.plugin.path}/modules/exif-inspector/exiftool`, [
-            '-EXIF:All',
+        const toolPath = path.normalize(`${eagle.plugin.path}/modules/exif-inspector/exiftool`);
+        try {
+            await fs.access(toolPath, fs.constants.F_OK | fs.constants.X_OK);
+        } catch (err) {
+            await new Promise((resolve, reject) => {
+                exec(`chmod +rx "${toolPath}"`, (error, stdout, stderr) => {
+                    if (error) reject(error);
+                    resolve();
+                });
+            });
+        }
+        const ls = spawn(toolPath, [
+            '-HDRImageType',
+            '-ExposureTime',
+            '-ExposureMode',
+            '-ExposureProgram',
             '-j',
+            '-EXIF:All',
             filePath
         ]);
 
@@ -18,7 +34,7 @@ module.exports = class {
                     ar.push(data.toString());
                 });
                 ls.stderr.on('data', (data) => {
-                    reject(data);
+                    console.error(data.toString());
                 });
                 ls.on('close', (code) => {
                     if (code !== 0) reject('Error: ' + code);
@@ -30,7 +46,7 @@ module.exports = class {
             data = deepRemoveUndefined(data);
             return data;
         } catch (err) {
-            return err;
+            throw err;
         }
     }
 };
@@ -44,7 +60,6 @@ const formatData = (exifData) => {
         },
         ShootingInfo: {
             DateTime: exifData['DateTimeOriginal'],
-            ExposureTime: exifData['ExposureTime'],
             FNumber: exifData['FNumber'],
             ISOSpeedRatings: exifData['ISOSpeed'],
             ExposureBias: exifData['Exposure'],
@@ -52,8 +67,13 @@ const formatData = (exifData) => {
             MeteringMode: exifData['MeteringMode'],
             Flash: exifData['Flash'],
             FocalLength: exifData['FocalLength'],
+
+            HDR: isHDR(exifData) ? 'YES' : '',
+
+            ExposureTime: exifData['ExposureTime'],
             ExposureMode: exifData['ExposureMode'],
             ExposureProgram: exifData['ExposureProgram'],
+
             WhiteBalance: exifData['WhiteBalance'],
             SceneCaptureType: exifData['SceneCaptureType'],
             Contrast: exifData['Contrast'],
@@ -105,4 +125,10 @@ const deepRemoveUndefined = (obj) => {
         }
     }
     return obj;
+};
+
+const isHDR = (exifData) => {
+    if (exifData.HDRImageType?.includes('HDR')) return true;
+    // 可能還有其他評判標準
+    return false;
 };
