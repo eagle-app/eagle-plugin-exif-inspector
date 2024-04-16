@@ -1,19 +1,23 @@
 'use strict';
-const { spawn } = require('node:child_process');
+const { spawn, exec } = require('node:child_process');
 const path = require('node:path');
+const fs = require('node:fs').promises;
 
 module.exports = class {
     static async getData(filePath) {
         filePath = path.normalize(filePath);
-        if (!(await fs.access(filePath, fs.constants.F_OK | fs.constants.X_OK))) {
+        const toolPath = path.normalize(`${eagle.plugin.path}/modules/exif-inspector/exiftool`);
+        try {
+            await fs.access(toolPath, fs.constants.F_OK | fs.constants.X_OK);
+        } catch (err) {
             await new Promise((resolve, reject) => {
-                exec(`chmod +x "${filePath}"`, (error, stdout, stderr) => {
+                exec(`chmod +rx "${toolPath}"`, (error, stdout, stderr) => {
                     if (error) reject(error);
                     resolve();
                 });
             });
         }
-        const ls = spawn(`${eagle.plugin.path}/modules/exif-inspector/exiftool`, [
+        const ls = spawn(toolPath, [
             '-HDRImageType',
             '-ExposureTime',
             '-ExposureMode',
