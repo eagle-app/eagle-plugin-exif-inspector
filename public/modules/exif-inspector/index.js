@@ -6,7 +6,8 @@ const fs = require('node:fs').promises;
 module.exports = class {
     static async getData(filePath) {
         filePath = path.normalize(filePath);
-        const toolPath = path.normalize(`${eagle.plugin.path}/modules/exif-inspector/exiftool`);
+        const exifToolName = process.platform === 'win32' ? 'exiftool.exe' : 'exiftool';
+        const toolPath = path.normalize(`${eagle.plugin.path}/modules/exif-inspector/${exifToolName}`);
         try {
             await fs.access(toolPath, fs.constants.F_OK | fs.constants.X_OK);
         } catch (err) {
@@ -17,6 +18,9 @@ module.exports = class {
                 });
             });
         }
+        debugger
+        // log command
+        console.log(`exiftool -HDRImageType -ExposureTime -ExposureMode -ExposureProgram -j -EXIF:All "${filePath}"`);
         const ls = spawn(toolPath, [
             '-HDRImageType',
             '-ExposureTime',
@@ -25,7 +29,14 @@ module.exports = class {
             '-j',
             '-EXIF:All',
             filePath
-        ]);
+        ], {
+            env: {
+                LC_ALL: 'C',
+                LANG: 'C'
+            }
+        });
+
+        
 
         try {
             let data = await new Promise((resolve, reject) => {
