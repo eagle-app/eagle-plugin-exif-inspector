@@ -22,7 +22,7 @@ onMounted(async () => {
     <template v-if="isLoading">
         <div class="card">
             <div class="loading"></div>
-            <div class="text">{{ t('loading') }}</div>
+            <!-- <div class="text">{{ t('loading') }}</div> -->
         </div>
     </template>
     <template v-else>
@@ -38,7 +38,7 @@ onMounted(async () => {
         </template>
         <template v-else>
             <div class="card">
-                <div class="no-data"></div>
+                <!-- <div class="no-data"></div> -->
                 <div class="text">{{ t('noData') }}</div>
             </div>
         </template>
@@ -94,7 +94,7 @@ onMounted(async () => {
 
     .text {
         color: var(--color-text-tertiary);
-        line-height: 18px;
+        line-height: 16px;
         font-size: 11px;
     }
 }
