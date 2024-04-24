@@ -1,5 +1,4 @@
 'use strict';
-const { log } = require('async');
 const { spawn, exec } = require('node:child_process');
 const path = require('node:path');
 const fs = require('node:fs').promises;
@@ -23,10 +22,10 @@ module.exports = class {
             });
         }
         const ls = spawn(toolPath, ['-PEkyct', filePath], {
-            // env: {
-            //     LC_ALL: 'C',
-            //     LANG: 'C'
-            // }
+            env: {
+                LC_ALL: 'C',
+                LANG: 'C'
+            }
         });
 
         try {
@@ -45,7 +44,7 @@ module.exports = class {
             });
 
             // Feature extraction
-            data = convertJson(data).Exif;
+            data = convertJson(data);
             data = formatData(data);
             data = deepRemoveUndefined(data);
 
@@ -57,8 +56,6 @@ module.exports = class {
 };
 
 const convertJson = (data) => {
-    console.log(data);
-
     let json_merge = {};
 
     data.split('\r\n')
@@ -68,17 +65,10 @@ const convertJson = (data) => {
             ar = ar.filter((item) => item);
             ar.splice(1, 2);
 
-            const keys = ar[0].split('.');
+            const key = ar[0].split('.').pop();
+            const value = ar.splice(1).join(' ');
 
-            let current_json = json_merge;
-            for (let key = 0; key < keys.length; key++) {
-                if (key === keys.length - 1) {
-                    current_json[keys[key]] = ar.splice(1).join(' ');
-                } else {
-                    current_json[keys[key]] = current_json[keys[key]] || {};
-                    current_json = current_json[keys[key]];
-                }
-            }
+            json_merge[key] = value;
         });
 
     return json_merge;
@@ -87,61 +77,65 @@ const convertJson = (data) => {
 const formatData = (exifData) => {
     return {
         CameraInfo: {
-            Make: null,
-            Model: null,
-            LensModel: null
+            Make: exifData.Make,
+            Model: exifData.Model,
+            LensModel: exifData.LensModel
         },
         ShootingInfo: {
-            DateTime: null,
-            FNumber: null,
-            ISOSpeedRatings: null,
-            ExposureBias: null,
-            MaxApertureValue: null,
-            MeteringMode: null,
-            Flash: null,
-            FocalLength: null,
+            DateTime: exifData.DateTimeDigitized,
+            FNumber: exifData.FNumber,
+            ISOSpeedRatings: exifData.ISOSpeed,
 
-            HDR: null,
+            ExposureBias: exifData.ExposureBiasValue,
+            ExposureTime: exifData.ExposureTime,
+            ExposureMode: exifData.ExposureMode,
+            ExposureProgram: exifData.ExposureProgram,
 
-            ExposureTime: null,
-            ExposureMode: null,
-            ExposureProgram: null,
+            MaxApertureValue: exifData.MaxApertureValue,
+            MeteringMode: exifData.MeteringMode,
+            Flash: exifData.Flash,
+            FocalLength: exifData.FocalLength,
 
-            WhiteBalance: null,
-            SceneCaptureType: null,
-            Contrast: null,
-            Saturation: null,
-            Sharpness: null
+            WhiteBalance: exifData.WhiteBalance,
+            SceneCaptureType: exifData.SceneCaptureType,
+            Contrast: exifData.Contrast,
+            Saturation: exifData.Saturation,
+            Sharpness: exifData.Sharpness
         },
         ImageInfo: {
-            Orientation: null,
-            XResolution: null,
-            YResolution: null,
-            ResolutionUnit: null,
-            Software: null,
-            ModifyDate: null
+            Orientation: exifData.Orientation,
+            XResolution: exifData.XResolution,
+            YResolution: exifData.YResolution,
+            ResolutionUnit: exifData.ResolutionUnit,
+            Software: exifData.Software,
+            ModifyDate: exifData.DateTime
         },
         GPSInfo: {
-            GPSLatitude: null,
-            GPSLongitude: null,
-            GPSAltitude: null,
-            GPSDateTime: null
+            GPSLatitude: exifData.GPSLatitude,
+            GPSLongitude: exifData.GPSLongitude,
+            GPSAltitude: exifData.GPSAltitude,
+            GPSDateTime: (() => {
+                const dateTime =
+                    `${exifData.GPSDateStamp ?? ''} ${exifData.GPSTimeStamp ?? ''}`.trim();
+                if (!dateTime) return undefined;
+                return dateTime;
+            })()
         },
         ThumbnailInfo: {
-            ThumbnailFormat: null,
-            ThumbnailCompression: null,
-            ThumbnailOffset: null,
-            ThumbnailLength: null
+            ThumbnailFormat: exifData.JPEGInterchangeFormat,
+            ThumbnailCompression: exifData.Compression,
+            ThumbnailOffset: exifData.Offset,
+            ThumbnailLength: exifData.JPEGInterchangeFormatLength
         },
         OtherInfo: {
-            ColorSpace: null,
-            FileSource: null,
-            SceneType: null,
-            CustomRendered: null,
-            DigitalZoomRatio: null,
-            FocalLengthIn35mmFilm: null,
-            Artist: null,
-            Copyright: null
+            ColorSpace: exifData.ColorSpace,
+            FileSource: exifData.FileSource,
+            SceneType: exifData.SceneType,
+            CustomRendered: exifData.CustomRendered,
+            DigitalZoomRatio: exifData.DigitalZoom,
+            FocalLengthIn35mmFilm: exifData.FocalLengthIn35mmFilm,
+            Artist: exifData.Artist,
+            Copyright: exifData.Copyright
         }
     };
 };
@@ -158,10 +152,4 @@ const deepRemoveUndefined = (obj) => {
         }
     }
     return obj;
-};
-
-const isHDR = (exifData) => {
-    if (exifData.HDRImageType?.includes('HDR')) return true;
-    // 可能還有其他評判標準
-    return false;
 };
