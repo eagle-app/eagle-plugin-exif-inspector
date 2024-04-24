@@ -1,4 +1,5 @@
 'use strict';
+const { log } = require('async');
 const { spawn, exec } = require('node:child_process');
 const path = require('node:path');
 const fs = require('node:fs').promises;
@@ -6,8 +7,11 @@ const fs = require('node:fs').promises;
 module.exports = class {
     static async getData(filePath) {
         filePath = path.normalize(filePath);
-        const exifToolName = process.platform === 'win32' ? 'exiftool.exe' : 'exiftool';
-        const toolPath = path.normalize(`${eagle.plugin.path}/modules/exif-inspector/${exifToolName}`);
+        const exifToolName = process.platform === 'win32' ? 'exiv2.exe' : 'exiv2';
+        const toolPath = path.normalize(
+            `${eagle.plugin.path}/modules/exif-inspector/${exifToolName}`
+        );
+        // 檢查檔案權限
         try {
             await fs.access(toolPath, fs.constants.F_OK | fs.constants.X_OK);
         } catch (err) {
@@ -18,25 +22,12 @@ module.exports = class {
                 });
             });
         }
-        debugger
-        // log command
-        console.log(`exiftool -HDRImageType -ExposureTime -ExposureMode -ExposureProgram -j -EXIF:All "${filePath}"`);
-        const ls = spawn(toolPath, [
-            '-HDRImageType',
-            '-ExposureTime',
-            '-ExposureMode',
-            '-ExposureProgram',
-            '-j',
-            '-EXIF:All',
-            filePath
-        ], {
-            env: {
-                LC_ALL: 'C',
-                LANG: 'C'
-            }
+        const ls = spawn(toolPath, ['-PEkyct', filePath], {
+            // env: {
+            //     LC_ALL: 'C',
+            //     LANG: 'C'
+            // }
         });
-
-        
 
         try {
             let data = await new Promise((resolve, reject) => {
@@ -52,9 +43,12 @@ module.exports = class {
                     resolve(ar.join(''));
                 });
             });
-            data = JSON.parse(data)[0];
+
+            // Feature extraction
+            data = convertJson(data).Exif;
             data = formatData(data);
             data = deepRemoveUndefined(data);
+
             return data;
         } catch (err) {
             throw err;
@@ -62,64 +56,92 @@ module.exports = class {
     }
 };
 
+const convertJson = (data) => {
+    console.log(data);
+
+    let json_merge = {};
+
+    data.split('\r\n')
+        .filter((item) => item)
+        .forEach((line) => {
+            let ar = line.split(' ');
+            ar = ar.filter((item) => item);
+            ar.splice(1, 2);
+
+            const keys = ar[0].split('.');
+
+            let current_json = json_merge;
+            for (let key = 0; key < keys.length; key++) {
+                if (key === keys.length - 1) {
+                    current_json[keys[key]] = ar.splice(1).join(' ');
+                } else {
+                    current_json[keys[key]] = current_json[keys[key]] || {};
+                    current_json = current_json[keys[key]];
+                }
+            }
+        });
+
+    return json_merge;
+};
+
 const formatData = (exifData) => {
     return {
         CameraInfo: {
-            Make: exifData['Make'],
-            Model: exifData['Model'],
-            LensModel: exifData['LensModel']
+            Make: null,
+            Model: null,
+            LensModel: null
         },
         ShootingInfo: {
-            DateTime: exifData['DateTimeOriginal'],
-            FNumber: exifData['FNumber'],
-            ISOSpeedRatings: exifData['ISOSpeed'],
-            ExposureBias: exifData['Exposure'],
-            MaxApertureValue: exifData['MaxApertureValue'],
-            MeteringMode: exifData['MeteringMode'],
-            Flash: exifData['Flash'],
-            FocalLength: exifData['FocalLength'],
+            DateTime: null,
+            FNumber: null,
+            ISOSpeedRatings: null,
+            ExposureBias: null,
+            MaxApertureValue: null,
+            MeteringMode: null,
+            Flash: null,
+            FocalLength: null,
 
-            HDR: isHDR(exifData) ? 'YES' : '',
+            HDR: null,
 
-            ExposureTime: exifData['ExposureTime'],
-            ExposureMode: exifData['ExposureMode'],
-            ExposureProgram: exifData['ExposureProgram'],
+            ExposureTime: null,
+            ExposureMode: null,
+            ExposureProgram: null,
 
-            WhiteBalance: exifData['WhiteBalance'],
-            SceneCaptureType: exifData['SceneCaptureType'],
-            Contrast: exifData['Contrast'],
-            Saturation: exifData['Saturation'],
-            Sharpness: exifData['Sharpness']
+            WhiteBalance: null,
+            SceneCaptureType: null,
+            Contrast: null,
+            Saturation: null,
+            Sharpness: null
         },
         ImageInfo: {
-            Orientation: exifData['Orientation'],
-            XResolution: exifData['XResolution'],
-            YResolution: exifData['YResolution'],
-            ResolutionUnit: exifData['ResolutionUnit'],
-            Software: exifData['Software'],
-            ModifyDate: exifData['ModifyDate']
+            Orientation: null,
+            XResolution: null,
+            YResolution: null,
+            ResolutionUnit: null,
+            Software: null,
+            ModifyDate: null
         },
         GPSInfo: {
-            GPSLatitude: exifData['GPSLatitude'],
-            GPSLongitude: exifData['GPSLongitude'],
-            GPSAltitude: exifData['GPSAltitude'],
-            GPSDateTime: exifData['GPSDateTime']
+            GPSLatitude: null,
+            GPSLongitude: null,
+            GPSAltitude: null,
+            GPSDateTime: null
         },
         ThumbnailInfo: {
-            ThumbnailFormat: exifData['FileFormat'],
-            ThumbnailCompression: exifData['Compression'],
-            ThumbnailOffset: exifData['ThumbnailOffset'],
-            ThumbnailLength: exifData['ThumbnailLength']
+            ThumbnailFormat: null,
+            ThumbnailCompression: null,
+            ThumbnailOffset: null,
+            ThumbnailLength: null
         },
         OtherInfo: {
-            ColorSpace: exifData['ColorSpace'],
-            FileSource: exifData['FileSource'],
-            SceneType: exifData['SceneType'],
-            CustomRendered: exifData['CustomRendered'],
-            DigitalZoomRatio: exifData['DigitalZoomRatio'],
-            FocalLengthIn35mmFilm: exifData['FocalLengthIn35mmFormat'],
-            Artist: exifData['Artist'],
-            Copyright: exifData['Copyright']
+            ColorSpace: null,
+            FileSource: null,
+            SceneType: null,
+            CustomRendered: null,
+            DigitalZoomRatio: null,
+            FocalLengthIn35mmFilm: null,
+            Artist: null,
+            Copyright: null
         }
     };
 };
