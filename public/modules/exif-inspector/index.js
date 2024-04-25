@@ -11,16 +11,17 @@ module.exports = class {
             `${eagle.plugin.path}/modules/exif-inspector/${exifToolName}`
         );
         // 檢查檔案權限
-        try {
-            await fs.access(toolPath, fs.constants.F_OK | fs.constants.X_OK);
-        } catch (err) {
-            await new Promise((resolve, reject) => {
-                exec(`chmod +rx "${toolPath}"`, (error, stdout, stderr) => {
-                    if (error) reject(error);
-                    resolve();
-                });
-            });
-        }
+        // try {
+        //     await fs.access(toolPath, fs.constants.F_OK | fs.constants.X_OK);
+        // } catch (err) {
+        //     await new Promise((resolve, reject) => {
+        //         exec(`chmod +rx "${toolPath}"`, (error, stdout, stderr) => {
+        //             if (error) reject(error);
+        //             resolve();
+        //         });
+        //     });
+        // }
+
         const ls = spawn(toolPath, ['-PEkyct', filePath], {
             env: {
                 LC_ALL: 'C',
@@ -58,7 +59,7 @@ module.exports = class {
 const convertJson = (data) => {
     let json_merge = {};
 
-    data.split('\r\n')
+    data.split(/\r?\n/)
         .filter((item) => item)
         .forEach((line) => {
             let ar = line.split(' ');
