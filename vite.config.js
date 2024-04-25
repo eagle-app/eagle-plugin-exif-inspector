@@ -7,6 +7,8 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import vue from '@vitejs/plugin-vue';
 import fg from 'fast-glob';
 
+import copy from 'rollup-plugin-copy';
+
 // https://vitejs.dev/config/
 export default defineConfig({
     base: './',
@@ -52,7 +54,20 @@ export default defineConfig({
                     this.addWatchFile(file);
                 }
             }
-        }
+        },
+        copy({
+            targets: [
+                {
+                    src: 'bin/win/*',
+                    dest: 'dist/build/modules/'
+                },
+                {
+                    src: 'bin/mac/*',
+                    dest: 'dist/build/modules/'
+                }
+            ],
+            hook: 'closeBundle'
+        })
     ],
     resolve: {
         alias: {
