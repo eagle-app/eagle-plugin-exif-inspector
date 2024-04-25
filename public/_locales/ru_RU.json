@@ -1,7 +1,7 @@
 {
     "manifest": {
         "app": {
-            "name": "Просмотрщик EXIF"
+            "name": "Exif-метаданные"
         }
     },
     "exif": {
