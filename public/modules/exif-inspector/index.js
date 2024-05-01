@@ -11,16 +11,13 @@ module.exports = class {
             `${eagle.plugin.path}/modules/exif-inspector/${exifToolName}`
         );
         // 檢查檔案權限
-        // try {
-        //     await fs.access(toolPath, fs.constants.F_OK | fs.constants.X_OK);
-        // } catch (err) {
-        //     await new Promise((resolve, reject) => {
-        //         exec(`chmod +rx "${toolPath}"`, (error, stdout, stderr) => {
-        //             if (error) reject(error);
-        //             resolve();
-        //         });
-        //     });
-        // }
+        if (process.platform !== 'win32') {
+            try {
+                await fs.access(toolPath, fs.constants.F_OK | fs.constants.X_OK);
+            } catch (err) {
+                await fs.chmod(toolPath, '755');
+            }
+        }
 
         const ls = spawn(toolPath, ['-PEkyct', filePath], {
             env: {
