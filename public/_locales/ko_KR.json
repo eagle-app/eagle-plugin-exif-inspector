@@ -1,7 +1,7 @@
 {
     "manifest": {
         "app": {
-            "name": "EXIF 뷰어"
+            "name": "Exif 메타데이터"
         }
     },
     "exif": {

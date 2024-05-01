@@ -26,8 +26,9 @@ module.exports = class {
             }
         });
 
+        let data = {};
         try {
-            let data = await new Promise((resolve, reject) => {
+            data = await new Promise((resolve, reject) => {
                 const ar = [];
                 ls.stdout.on('data', (data) => {
                     ar.push(data.toString());
@@ -41,15 +42,15 @@ module.exports = class {
                 });
             });
 
-            // Feature extraction
             data = convertJson(data);
             data = formatData(data);
             data = deepRemoveUndefined(data);
-
-            return data;
         } catch (err) {
-            throw err;
+            console.error(err);
         }
+        // Feature extraction
+
+        return data;
     }
 };
 

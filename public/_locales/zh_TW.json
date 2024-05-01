@@ -1,7 +1,7 @@
 {
     "manifest": {
         "app": {
-            "name": "EXIF 屬性"
+            "name": "Exif 中繼資料"
         }
     },
     "exif": {
