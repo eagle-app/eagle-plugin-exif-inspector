@@ -45,8 +45,8 @@ module.exports = class {
             data = convertJson(data);
             data = formatData(data);
             data = deepRemoveUndefined(data);
-        } catch (err) {
-            console.error(err);
+        } catch (error) {
+            eagle.log.error(error);
         }
         // Feature extraction
 
