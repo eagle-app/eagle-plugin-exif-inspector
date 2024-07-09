@@ -9,15 +9,17 @@ import '@styles/main.scss';
 
 const app = createApp(App);
 
-const utils = require(`${__dirname}/modules/utils`);
-
 app.use(VueTippy);
 app.use(VueMousetrapPlugin).provide('mousetrap', app.config.globalProperties.$mousetrap);
 
 eagle.onPluginCreate(async () => {
-    toggleTheme();
-
     app.mount('#app');
+
+    process.on('uncaughtException', (error) => {
+        eagle.log.error('uncaughtException : ' + error);
+    });
+
+    toggleTheme();
 });
 
 eagle.onThemeChanged(() => {
