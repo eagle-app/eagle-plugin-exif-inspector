@@ -156,27 +156,15 @@ onMounted(() => {
             }
         }
 
+        @container info-container (min-width: 250px) {
+            .row .title {
+                width: 125px;
+            }
+        }
+
         @container info-container (min-width: 300px) {
             .row .title {
                 width: 150px;
-            }
-        }
-
-        @container info-container (min-width: 400px) {
-            .row .title {
-                width: 180px;
-            }
-        }
-
-        @container info-container (min-width: 500px) {
-            .row .title {
-                width: 210px;
-            }
-        }
-
-        @container info-container (min-width: 600px) {
-            .row .title {
-                width: 240px;
             }
         }
     }
