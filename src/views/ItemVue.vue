@@ -126,19 +126,57 @@ onMounted(() => {
         overflow: hidden;
         max-height: 0;
         transition: max-height 200ms ease-in-out;
+        /* 啟用 Container Queries */
+        container-type: inline-size;
+        container-name: info-container;
+        
         .row {
             margin-bottom: 2px;
             display: flex;
             gap: 8px;
             line-height: 18px;
             .title {
+                /* 預設寬度 */
                 width: 80px;
                 color: var(--color-text-primary);
+                overflow: hidden;
+                flex-shrink: 0;
             }
             .content {
                 flex: 1;
                 font-family: var(--font-family-mono);
                 color: var(--color-text-secondary);
+            }
+        }
+
+        /* Container Queries - 根據容器寬度調整 title 寬度 */
+        @container info-container (min-width: 200px) {
+            .row .title {
+                width: 100px;
+            }
+        }
+
+        @container info-container (min-width: 300px) {
+            .row .title {
+                width: 150px;
+            }
+        }
+
+        @container info-container (min-width: 400px) {
+            .row .title {
+                width: 180px;
+            }
+        }
+
+        @container info-container (min-width: 500px) {
+            .row .title {
+                width: 210px;
+            }
+        }
+
+        @container info-container (min-width: 600px) {
+            .row .title {
+                width: 240px;
             }
         }
     }
