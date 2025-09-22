@@ -44,6 +44,7 @@ async function toggleTheme() {
     htmlEl.classList.add('no-transition');
     htmlEl.setAttribute('theme', themeName);
     htmlEl.setAttribute('platform', eagle.app.platform);
+    htmlEl.setAttribute('locale', eagle.app.locale);
     await nextTick();
     htmlEl.classList.remove('no-transition');
 }

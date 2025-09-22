@@ -58,6 +58,22 @@ onMounted(() => {
 
 <style lang="scss">
 @use '@styles/modules/mixins' as mixins;
+
+html {
+    &[locale='zh_TW'],
+    &[locale='zh_CN'] {
+        .item-vue {
+            .info {
+                .row {
+                    .title {
+                        max-width: 90px !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
 .item-vue {
     background-color: var(--color-bg-hover);
     border-radius: 4px;
@@ -152,19 +168,25 @@ onMounted(() => {
         /* Container Queries - 根據容器寬度調整 title 寬度 */
         @container info-container (min-width: 200px) {
             .row .title {
+                width: 80px;
+            }
+        }
+
+        @container info-container (min-width: 220px) {
+            .row .title {
                 width: 100px;
             }
         }
 
-        @container info-container (min-width: 250px) {
+        @container info-container (min-width: 240px) {
             .row .title {
-                width: 125px;
+                width: 120px;
             }
         }
 
-        @container info-container (min-width: 300px) {
+        @container info-container (min-width: 260px) {
             .row .title {
-                width: 150px;
+                width: 140px;
             }
         }
     }
