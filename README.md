@@ -1,4 +1,4 @@
-# eagle-plugin-pinterest-search
+# eagle-plugin-exif-inspector
 
 This template should help get you started developing with Vue 3 in Vite.
 
