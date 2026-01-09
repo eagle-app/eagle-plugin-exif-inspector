@@ -45,6 +45,7 @@ onMounted(() => {
             <div class="collapse-btn"></div>
         </div>
         <div class="info">
+            <slot name="before-info" :expanded="!is_collapsed"></slot>
             <div style="height: 8px" v-if="Object.keys(props.info).length !== 0"></div>
             <div class="row" v-for="(v, k) in props.info" :key="v">
                 <div class="title">
@@ -52,6 +53,7 @@ onMounted(() => {
                 </div>
                 <div class="content">{{ v }}</div>
             </div>
+            <slot name="after-info"></slot>
         </div>
     </div>
 </template>

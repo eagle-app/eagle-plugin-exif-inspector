@@ -56,5 +56,6 @@
         "Copyright": "Urheberrechtsinformationen"
     },
     "noData": "Diese Datei enthält keine relevanten Informationen.",
-    "loading": "Informationen werden geladen..."
+    "loading": "Informationen werden geladen...",
+    "openInMap": "Auf Karte anzeigen"
 }

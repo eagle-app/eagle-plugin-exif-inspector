@@ -56,5 +56,6 @@
         "Copyright": "版权信息"
     },
     "noData": "该文件没有相关信息",
-    "loading": "信息加载中..."
+    "loading": "信息加载中...",
+    "openInMap": "在地图中查看"
 }

@@ -56,5 +56,6 @@
         "Copyright": "Copyright"
     },
     "noData": "No relevant information available in this document",
-    "loading": "Information loading..."
+    "loading": "Information loading...",
+    "openInMap": "View on Map"
 }
